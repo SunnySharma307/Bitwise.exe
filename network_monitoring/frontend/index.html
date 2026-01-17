@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Monitoring System - Security Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>Network Monitor Pro</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#dashboard" class="nav-link active">Dashboard</a>
+                    <a href="#upload" class="nav-link">Upload PCAP</a>
+                    <a href="#attacks" class="nav-link">Attack Logs</a>
+                    <a href="#real-time-monitoring" class="nav-link">Real-Time IPs</a>
+                    <a href="#connections" class="nav-link">Connections</a>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <span class="theme-toggle-slider"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Statistics Cards -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Packets</h3>
+                            <p class="stat-value" id="total-packets">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Attacks Detected</h3>
+                            <p class="stat-value" id="attacks-detected">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Blocked IPs</h3>
+                            <p class="stat-value" id="blocked-ips">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Active Connections</h3>
+                            <p class="stat-value" id="active-connections">0</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section id="upload" class="upload-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-upload"></i> Upload PCAP File</h2>
+                    <p>Upload network capture file for analysis</p>
+                </div>
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop PCAP File</h3>
+                        <p>or click to browse</p>
+                        <input type="file" id="pcap-file" accept=".pcap" style="display: none;">
+                        <button class="btn btn-primary" onclick="document.getElementById('pcap-file').click()">
+                            Select File
+                        </button>
+                    </div>
+                </div>
+                <div class="upload-progress" id="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="progress-text">Analyzing...</p>
+                </div>
+                <div class="analysis-results" id="analysis-results" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Attack Logs Section -->
+            <section id="attacks" class="attacks-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> Attack Logs</h2>
+                    <button class="btn btn-secondary" onclick="loadAttackLogs()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="logs-container" id="logs-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading attack logs...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-Time IP Monitoring Section -->
+            <section id="real-time-monitoring" class="real-time-monitoring-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-radar"></i> Real-Time IP Monitoring</h2>
+                    <div class="section-header-actions">
+                        <button class="btn btn-secondary" onclick="loadRealTimeIPs()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <label class="auto-refresh-toggle">
+                            <input type="checkbox" id="auto-refresh-toggle" checked>
+                            <span>Auto-refresh</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="real-time-stats">
+                    <div class="real-time-stat">
+                        <span class="stat-label">Active IPs</span>
+                        <span class="stat-value" id="active-ips-count">0</span>
+                    </div>
+                    <div class="real-time-stat">
+                        <span class="stat-label">Total Packets</span>
+                        <span class="stat-value" id="total-packets-realtime">0</span>
+                    </div>
+                    <div class="real-time-stat">
+                        <span class="stat-label">Suspicious IPs</span>
+                        <span class="stat-value danger" id="suspicious-ips-count">0</span>
+                    </div>
+                </div>
+                <div class="real-time-ips-container" id="real-time-ips-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading real-time IP data...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Google Maps Section -->
+            <section class="maps-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-map-marked-alt"></i> Attack Sources Map</h2>
+                    <button class="btn btn-secondary" onclick="loadAttackLocations()">
+                        <i class="fas fa-sync-alt"></i> Refresh Map
+                    </button>
+                </div>
+                <div class="maps-container" id="maps-container">
+                    <iframe 
+                        src="https://www.google.com/maps/d/embed?mid=1wb2nM6Qchqnayx6nSJvmmzno1wc5wJE&ehbc=2E312F" 
+                        width="100%" 
+                        height="500" 
+                        style="border:0; border-radius: 12px;"
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- Connections Section -->
+            <section id="connections" class="connections-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-project-diagram"></i> Network Connections</h2>
+                    <button class="btn btn-secondary" onclick="loadConnections()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="connections-visualization">
+                    <div class="connections-table-container">
+                        <table class="connections-table">
+                            <thead>
+                                <tr>
+                                    <th>Source IP</th>
+                                    <th>Destination IP</th>
+                                    <th>Protocol</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="connections-table-body">
+                                <tr>
+                                    <td colspan="4" class="loading-cell">
+                                        <i class="fas fa-spinner fa-spin"></i> Loading connections...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blocked IPs Section -->
+            <section class="blocked-ips-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-ban"></i> Blocked IPs</h2>
+                    <button class="btn btn-secondary" onclick="loadBlockedIPs()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="blocked-ips-container" id="blocked-ips-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading blocked IPs...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Network Monitoring System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

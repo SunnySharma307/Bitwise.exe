@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": "2026-01-18T04:32:21.945491",
+    "attack_type": "SYN Flood",
+    "source_ip": "10.254.182.87",
+    "destination_ip": "51.116.246.105",
+    "classification": "Denial of Service (DoS) - SYN Flood",
+    "confidence": 90,
+    "description": "SYN Flood attack detected from 10.254.182.87. Multiple SYN packets sent in short time window indicating TCP handshake abuse.",
+    "packet_details": {
+      "size": 66,
+      "protocol": "TCP",
+      "flags": "S"
+    }
+  },
+  {
+    "timestamp": "2026-01-18T04:32:21.947511",
+    "attack_type": "SYN Flood",
+    "source_ip": "10.254.182.87",
+    "destination_ip": "18.161.125.67",
+    "classification": "Denial of Service (DoS) - SYN Flood",
+    "confidence": 90,
+    "description": "SYN Flood attack detected from 10.254.182.87. Multiple SYN packets sent in short time window indicating TCP handshake abuse.",
+    "packet_details": {
+      "size": 66,
+      "protocol": "TCP",
+      "flags": "S"
+    }
+  }
+]

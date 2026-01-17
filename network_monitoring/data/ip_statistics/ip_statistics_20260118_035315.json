@@ -1,0 +1,110 @@
+[
+  {
+    "10.254.182.87": {
+      "packet_count": 25,
+      "bytes_sent": 1127,
+      "bytes_received": 1117,
+      "protocols": [
+        "UDP",
+        "TCP"
+      ],
+      "ports": [
+        64867,
+        63333,
+        59870,
+        5353,
+        52041,
+        56140,
+        56141,
+        49646,
+        57681,
+        53458,
+        58683,
+        60126
+      ],
+      "first_seen": "2026-01-15T15:39:29.547529",
+      "last_seen": "2026-01-15T15:39:30.501942",
+      "syn_packet_count": 6,
+      "udp_packet_count": 5
+    },
+    "142.250.70.78": {
+      "packet_count": 4,
+      "bytes_sent": 132,
+      "bytes_received": 132,
+      "protocols": [
+        "TCP"
+      ],
+      "ports": [
+        443
+      ],
+      "first_seen": "2026-01-15T15:39:29.547529",
+      "last_seen": "2026-01-15T15:39:30.027686"
+    },
+    "74.125.24.188": {
+      "packet_count": 10,
+      "bytes_sent": 198,
+      "bytes_received": 414,
+      "protocols": [
+        "TCP"
+      ],
+      "ports": [
+        5228
+      ],
+      "first_seen": "2026-01-15T15:39:29.547529",
+      "last_seen": "2026-01-15T15:39:30.472064"
+    },
+    "224.0.0.251": {
+      "packet_count": 2,
+      "bytes_sent": 0,
+      "bytes_received": 164,
+      "protocols": [
+        "UDP"
+      ],
+      "ports": [
+        5353
+      ],
+      "first_seen": "2026-01-15T15:39:29.976601",
+      "last_seen": "2026-01-15T15:39:29.979028"
+    },
+    "10.254.182.142": {
+      "packet_count": 7,
+      "bytes_sent": 787,
+      "bytes_received": 285,
+      "protocols": [
+        "UDP"
+      ],
+      "ports": [
+        53
+      ],
+      "first_seen": "2026-01-15T15:39:30.027686",
+      "last_seen": "2026-01-15T15:39:30.484161",
+      "udp_packet_count": 4
+    },
+    "51.116.246.105": {
+      "packet_count": 1,
+      "bytes_sent": 0,
+      "bytes_received": 66,
+      "protocols": [
+        "TCP"
+      ],
+      "ports": [
+        443
+      ],
+      "first_seen": "2026-01-15T15:39:30.033891",
+      "last_seen": "2026-01-15T15:39:30.033891"
+    },
+    "18.161.125.67": {
+      "packet_count": 1,
+      "bytes_sent": 0,
+      "bytes_received": 66,
+      "protocols": [
+        "TCP"
+      ],
+      "ports": [
+        443
+      ],
+      "first_seen": "2026-01-15T15:39:30.501942",
+      "last_seen": "2026-01-15T15:39:30.501942"
+    }
+  }
+]
